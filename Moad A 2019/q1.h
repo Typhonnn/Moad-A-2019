@@ -49,4 +49,5 @@ float	calculateIncome(Trip* pTrip);
 
 void	releaseCompany(Company* pCompany);
 
+float customerPay(CustomerType type);
 #endif

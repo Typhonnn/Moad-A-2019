@@ -39,23 +39,6 @@ void Q1()
 	releaseCompany(&theCompany);
 }
 
-
-int StringToEnum(char* type) {
-	if ("Adult" == type) {
-		return 0;
-	}
-	else if ("Child" == type) {
-		return 1;
-	}
-	else if ("Baby" == type) {
-		return 2;
-	}
-	else if ("Soldier" == type) {
-		return 3;
-	}
-	return -1;
-}
-
 int		readCustomerFromFile(FILE* fp, Customer* pCust)
 {
 	int sizeOfStr = 1;
@@ -83,22 +66,38 @@ int		readCustomerFromFile(FILE* fp, Customer* pCust)
 
 int addCustomerToTrip(Trip* trip, Customer* pCust) {
 	if (trip->coustomersCount == 0) {
-		trip->country = calloc(strlen(pCust->country), sizeof(char));
+		trip->country = calloc(strlen(pCust->country) + 1, sizeof(char));
 		if (trip->country == NULL) {
 			return 0;
 		}
-		trip->country = pCust->country;
+		strcpy_s(trip->country, strlen(pCust->country) + 1, pCust->country);
 		trip->customersArr = calloc(1, sizeof(Customer*));
 		if (trip->customersArr == NULL) {
 			return 0;
 		}
 	}
-	Customer** temp = trip->customersArr;
-	trip->customersArr = realloc(temp, (trip->coustomersCount + 1) * sizeof(Customer*));
+	Customer** tempArr = trip->customersArr;
+	int size = trip->coustomersCount + 1;
+	trip->customersArr = realloc(tempArr, size * sizeof(Customer*));
 	if (trip->customersArr == NULL) {
 		return 0;
 	}
-	trip->customersArr[trip->coustomersCount++] = pCust;
+	trip->customersArr[trip->coustomersCount] = calloc(1, sizeof(Customer));
+	if (trip->customersArr[trip->coustomersCount] == NULL) {
+		return 0;
+	}
+	trip->customersArr[trip->coustomersCount]->name = calloc(strlen(pCust->name) + 1, sizeof(char));
+	if (trip->customersArr[trip->coustomersCount]->name == NULL) {
+		return 0;
+	}
+	strcpy_s(trip->customersArr[trip->coustomersCount]->name, strlen(pCust->name) + 1, pCust->name);
+	trip->customersArr[trip->coustomersCount]->country = calloc(strlen(pCust->country) + 1, sizeof(char));
+	if (trip->customersArr[trip->coustomersCount]->country == NULL) {
+		return 0;
+	}
+	strcpy_s(trip->customersArr[trip->coustomersCount]->country, strlen(pCust->country) + 1, pCust->country);
+	trip->customersArr[trip->coustomersCount]->type = pCust->type;
+	trip->coustomersCount++;
 	return 1;
 }
 
@@ -121,38 +120,65 @@ int		addCustomerToCompany(Company* pCompany, Customer* pCust)
 		if (pCompany->tripsArr == NULL) {
 			return 0;
 		}
-		pCompany->tripsArr[0] = calloc(1, sizeof(Trip));
-		if (pCompany->tripsArr[0] == NULL) {
-			return 0;
-		}
 	}
 	Trip** tempArr = pCompany->tripsArr;
-	pCompany->tripsArr = realloc(tempArr, (pCompany->tripsCount + 1) * sizeof(Trip*));
+	int size = pCompany->tripsCount + 1;
+	pCompany->tripsArr = realloc(tempArr, size * sizeof(Trip*));
 	if (pCompany->tripsArr == NULL) {
 		return 0;
 	}
-	Trip* temp = pCompany->tripsArr[pCompany->tripsCount];
-	pCompany->tripsArr[pCompany->tripsCount] = realloc(temp, sizeof(Trip));
+	pCompany->tripsArr[pCompany->tripsCount] = calloc(1, sizeof(Trip));
 	if (pCompany->tripsArr[pCompany->tripsCount] == NULL) {
 		return 0;
 	}
 	return addCustomerToTrip(pCompany->tripsArr[pCompany->tripsCount++], pCust);
 }
 
+float customerPay(CustomerType type) {
+	if (Adult == type) {
+		return BASE_PRICE;
+	}
+	else if (Child == type) {
+		return BASE_PRICE * CHILD_PRICE;
+	}
+	else if (Baby == type) {
+		return BASE_PRICE * BABY_PRICE;
+	}
+	else if (Soldier == type) {
+		return BASE_PRICE * SOLDIER_PRICE;
+	}
+	return -1;
+}
+
 float	calculateIncome(Trip* pTrip)
 {
-
-
-	return 0;
+	int i;
+	float totalIncome = 0;
+	if (pTrip == NULL) {
+		return -1;
+	}
+	for (i = 0; i < pTrip->coustomersCount; i++) {
+		totalIncome += customerPay(pTrip->customersArr[i]->type);
+	}
+	return totalIncome;
 }
 
 
 
 void releaseCompany(Company* pCompany)
 {
-
-
-
+	int i, j;
+	for ( i = 0; i < pCompany->tripsCount; i++)	{
+			for (j = 0; j < pCompany->tripsArr[i]->coustomersCount; j++) {
+				free(pCompany->tripsArr[i]->customersArr[j]->country);
+				free(pCompany->tripsArr[i]->customersArr[j]->name);
+				free(pCompany->tripsArr[i]->customersArr[j]);
+			}
+			free(pCompany->tripsArr[i]->country);
+			free(pCompany->tripsArr[i]->customersArr);
+			free(pCompany->tripsArr[i]);
+	}
+	free(pCompany->tripsArr);
 }
 
 

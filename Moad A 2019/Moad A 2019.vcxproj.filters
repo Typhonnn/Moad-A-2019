@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\main.c">
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q1.c">
+    <ClCompile Include="q1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q2.c">
+    <ClCompile Include="q2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q1.h">
+    <ClInclude Include="q1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q2.h">
+    <ClInclude Include="q2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

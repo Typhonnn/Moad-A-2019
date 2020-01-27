@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c" />
+    <ClCompile Include="q1.c" />
+    <ClCompile Include="q2.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="q1.h" />
+    <ClInclude Include="q2.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{5DBAF0B4-13BE-4025-8777-B5FB579B7AD2}</ProjectGuid>
@@ -137,15 +146,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\main.c" />
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q1.c" />
-    <ClCompile Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q2.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q1.h" />
-    <ClInclude Include="..\..\..\..\Downloads\Term_A_2019\Term_A_Model_Publish\X_Survey_MatSort_Starter\q2.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
